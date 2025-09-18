@@ -6,7 +6,7 @@ import path from "path";
 export const fileRoutes = (app: any) =>
   app.group("/api/v1/files", (app: any) =>
     app
-      // 1️⃣ Upload harus paling atas
+
       .post(
   "/upload",
   async ({ body }) => {
@@ -42,12 +42,12 @@ export const fileRoutes = (app: any) =>
 )
 
 
-      // 2️⃣ Ambil file berdasarkan folder
+
       .get("/folder/:folderId", fileController.getByFolderId, {
         params: t.Object({ folderId: t.Numeric() }),
       })
 
-      // 3️⃣ Buat file metadata
+
       .post("/", fileController.create, {
         body: t.Object({
           name: t.String(),
@@ -56,7 +56,7 @@ export const fileRoutes = (app: any) =>
         }),
       })
 
-      // 4️⃣ Update
+
       .put("/:id", fileController.update, {
         params: t.Object({ id: t.Numeric() }),
         body: t.Object({
@@ -65,7 +65,7 @@ export const fileRoutes = (app: any) =>
         }),
       })
 
-      // 5️⃣ Delete
+
       .delete("/:id", fileController.remove, {
         params: t.Object({ id: t.Numeric() }),
       })

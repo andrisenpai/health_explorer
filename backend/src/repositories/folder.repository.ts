@@ -8,13 +8,13 @@ export const folderRepository = {
   create: (data: { name: string; parentId?: number }) =>
     prisma.folder.create({ data }),
 
-  // NEW: Update
+
   update: (id: number, data: { name?: string; parentId?: number }) =>
     prisma.folder.update({
       where: { id },
       data,
     }),
 
-  // NEW: Delete
+
   remove: (id: number) => prisma.folder.delete({ where: { id } }),
 };

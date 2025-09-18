@@ -11,7 +11,7 @@ import {
 } from "./services/api";
 import AddFileModal from "./components/AddFileModal.vue";
 
-// --- Interfaces ---
+
 interface Folder {
   id: number;
   name: string;
@@ -24,7 +24,7 @@ interface File {
   folderId: number;
 }
 
-// --- State ---
+
 const selectedFolderId = ref<number | null>(null);
 const selectedFolderName = ref<string>("Root");
 
@@ -32,18 +32,18 @@ const rootFolders = ref<Folder[]>([]);
 const subfolders = ref<Folder[]>([]);
 const files = ref<File[]>([]);
 
-// --- Modal State ---
+
 const showFolderModal = ref(false);
 const showFileModal = ref(false);
 const showDeleteModal = ref(false);
 const showDeleteFolderModal = ref(false);
 
-// --- Form State ---
+
 const newFolderName = ref("");
 const deleteFileId = ref<number | null>(null);
 const deleteFolderId = ref<number | null>(null);
 
-// --- Actions ---
+
 async function showSubfolders(id: number, name?: string) {
   selectedFolderId.value = id;
   if (name) selectedFolderName.value = name;
@@ -81,7 +81,7 @@ async function refresh() {
   }
 }
 
-// --- Reset Modals ---
+
 function resetFolderModal() {
   newFolderName.value = "";
   showFolderModal.value = false;
@@ -137,7 +137,7 @@ function getFileIcon(name: string) {
       return "📄";
   }
 }
-// --- Lifecycle ---
+
 onMounted(async () => {
   rootFolders.value = await getRootFolders();
 });

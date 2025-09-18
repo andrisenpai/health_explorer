@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  // ===== Root folders =====
+
   const rootMedical = await prisma.folder.create({
     data: { name: "Medical", parentId: null },
   });
@@ -16,7 +16,7 @@ async function main() {
     data: { name: "Personal", parentId: null },
   });
 
-  // ===== Nested folders under Medical =====
+
   const medRecords = await prisma.folder.create({
     data: { name: "Records", parentId: rootMedical.id },
   });
@@ -33,7 +33,7 @@ async function main() {
     data: { name: "MRI", parentId: medLab.id }, // nested level 2
   });
 
-  // ===== Nested folders under Finance =====
+
   const finInvoices = await prisma.folder.create({
     data: { name: "Invoices", parentId: rootFinance.id },
   });
@@ -50,7 +50,7 @@ async function main() {
     data: { name: "2024", parentId: finTaxes.id }, // nested
   });
 
-  // ===== Nested folders under Personal =====
+
   const persPhotos = await prisma.folder.create({
     data: { name: "Photos", parentId: rootPersonal.id },
   });
@@ -63,7 +63,7 @@ async function main() {
     data: { name: "Family", parentId: persPhotos.id },
   });
 
-  // ===== Insert files for demo =====
+
   await prisma.file.createMany({
     data: [
       { name: "Checkup_Jan.pdf", type: "pdf", folderId: medRecords.id },

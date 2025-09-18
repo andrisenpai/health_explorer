@@ -7,15 +7,15 @@ export const folderController = {
     folderService.getByParent(Number(params.id)),
   create: ({ body }: any) => folderService.create(body),
 
-  // NEW: Update
+
   update: ({ params, body }: any) =>
     folderService.update(Number(params.id), body),
 
-  // NEW: Delete
+
   async remove({ params, set }: any) {
     const { id } = params;
 
-    // cek apakah folder ada
+
     const folder = await prisma.folder.findUnique({
       where: { id: Number(id) },
       include: { children: true, files: true },

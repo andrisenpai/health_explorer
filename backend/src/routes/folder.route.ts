@@ -15,7 +15,7 @@ export const folderRoutes = (app: any) =>
           parentId: t.Optional(t.Numeric()),
         }),
       })
-      // NEW: Update
+
       .put("/folders/:id", folderController.update, {
         params: t.Object({ id: t.Numeric() }),
         body: t.Object({
@@ -23,7 +23,7 @@ export const folderRoutes = (app: any) =>
           parentId: t.Optional(t.Numeric()),
         }),
       })
-      // NEW: Delete
+
       .delete("/folders/:id", folderController.remove, {
         params: t.Object({
           id: t.Numeric(),

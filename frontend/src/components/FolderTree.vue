@@ -46,7 +46,7 @@ async function handleClick(e?: MouseEvent) {
   props.onSelect(props.folder.id, props.folder.name);
 }
 
-// auto expand kalau selectedId berubah
+
 watch(
   () => props.selectedId,
   async (newVal) => {
