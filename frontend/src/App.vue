@@ -140,7 +140,6 @@ onMounted(async () => {
 
 <template>
   <div class="container-fluid bg-light vh-100 d-flex flex-column">
-    <!-- Header -->
     <div class="p-3 bg-tosca text-white shadow-sm d-flex justify-content-between">
       <div>
         <h4 class="m-0">🏥 Health Explorer</h4>
@@ -153,7 +152,6 @@ onMounted(async () => {
     </div>
 
     <div class="row flex-grow-1 g-0">
-      <!-- Sidebar kiri -->
       <div class="col-12 col-md-3 border-end bg-white p-3 overflow-auto">
         <h6 class="text-tosca fw-bold mb-3">Folders</h6>
         <ul class="list-unstyled">
@@ -169,12 +167,10 @@ onMounted(async () => {
         </ul>
       </div>
 
-      <!-- Panel kanan -->
       <div class="col-12 col-md-9 bg-light p-4 overflow-auto">
         <h6 class="text-tosca fw-bold mb-3">{{ selectedFolderName }}</h6>
 
         <TransitionGroup name="list" tag="div" class="row g-3">
-          <!-- Subfolders -->
           <div
             v-for="sf in subfolders"
             :key="`folder-${sf.id}`"
@@ -197,8 +193,6 @@ onMounted(async () => {
               </div>
             </div>
           </div>
-
-          <!-- Files -->
           <div
             v-for="file in files"
             :key="`file-${file.id}`"
@@ -220,7 +214,6 @@ onMounted(async () => {
           </div>
         </TransitionGroup>
 
-        <!-- Empty state -->
         <Transition name="fade">
           <div
             v-if="subfolders.length === 0 && files.length === 0"
@@ -232,7 +225,6 @@ onMounted(async () => {
       </div>
     </div>
 
-    <!-- 📂 Modal: Tambah Folder -->
     <div class="modal fade show" v-if="showFolderModal" style="display:block;" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -251,7 +243,6 @@ onMounted(async () => {
       </div>
     </div>
 
-    <!-- 📤 Modal: Upload File -->
     <AddFileModal
       :folderId="selectedFolderId"
       :show="showFileModal"
@@ -259,7 +250,6 @@ onMounted(async () => {
       @uploaded="() => { if (selectedFolderId) showSubfolders(selectedFolderId) }"
     />
 
-    <!-- ❌ Modal: Delete File -->
     <div class="modal fade show" v-if="showDeleteModal" style="display:block;" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -278,7 +268,6 @@ onMounted(async () => {
       </div>
     </div>
 
-    <!-- ❌ Modal: Delete Folder -->
     <div class="modal fade show" v-if="showDeleteFolderModal" style="display:block;" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
