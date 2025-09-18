@@ -11,7 +11,6 @@ import {
 } from "./services/api";
 import AddFileModal from "./components/AddFileModal.vue";
 
-
 interface Folder {
   id: number;
   name: string;
@@ -24,7 +23,6 @@ interface File {
   folderId: number;
 }
 
-
 const selectedFolderId = ref<number | null>(null);
 const selectedFolderName = ref<string>("Root");
 
@@ -32,17 +30,14 @@ const rootFolders = ref<Folder[]>([]);
 const subfolders = ref<Folder[]>([]);
 const files = ref<File[]>([]);
 
-
 const showFolderModal = ref(false);
 const showFileModal = ref(false);
 const showDeleteModal = ref(false);
 const showDeleteFolderModal = ref(false);
 
-
 const newFolderName = ref("");
 const deleteFileId = ref<number | null>(null);
 const deleteFolderId = ref<number | null>(null);
-
 
 async function showSubfolders(id: number, name?: string) {
   selectedFolderId.value = id;
@@ -81,7 +76,6 @@ async function refresh() {
   }
 }
 
-
 function resetFolderModal() {
   newFolderName.value = "";
   showFolderModal.value = false;
@@ -94,6 +88,7 @@ function resetDeleteFolderModal() {
   deleteFolderId.value = null;
   showDeleteFolderModal.value = false;
 }
+
 function getFileExtension(name: string) {
   return name.split(".").pop()?.toLowerCase() || "";
 }
@@ -146,7 +141,7 @@ onMounted(async () => {
 <template>
   <div class="container-fluid bg-light vh-100 d-flex flex-column">
     <!-- Header -->
-    <div class="p-3 bg-success text-white shadow-sm d-flex justify-content-between">
+    <div class="p-3 bg-tosca text-white shadow-sm d-flex justify-content-between">
       <div>
         <h4 class="m-0">🏥 Health Explorer</h4>
         <small class="text-white-50">Your medical documents and records</small>
@@ -160,7 +155,7 @@ onMounted(async () => {
     <div class="row flex-grow-1 g-0">
       <!-- Sidebar kiri -->
       <div class="col-12 col-md-3 border-end bg-white p-3 overflow-auto">
-        <h6 class="text-success fw-bold mb-3">Folders</h6>
+        <h6 class="text-tosca fw-bold mb-3">Folders</h6>
         <ul class="list-unstyled">
           <FolderTree
             v-for="f in rootFolders"
@@ -171,61 +166,59 @@ onMounted(async () => {
             :onSelect="(id, name) => showSubfolders(id, name)" 
             :selectedId="selectedFolderId"
           />
-
         </ul>
       </div>
 
       <!-- Panel kanan -->
       <div class="col-12 col-md-9 bg-light p-4 overflow-auto">
-        <h6 class="text-success fw-bold mb-3">{{ selectedFolderName }}</h6>
+        <h6 class="text-tosca fw-bold mb-3">{{ selectedFolderName }}</h6>
 
-        <!-- Animated grid -->
         <TransitionGroup name="list" tag="div" class="row g-3">
-    <!-- Subfolders -->
-    <div
-      v-for="sf in subfolders"
-      :key="`folder-${sf.id}`"
-      class="col-12 col-sm-6 col-lg-4"
-    >
-      <div
-        class="card h-100 shadow-sm border-0 folder-card position-relative"
-        @click="showSubfolders(sf.id, sf.name)"
-        style="cursor: pointer;"
-      >
-        <button
-          class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1"
-          @click.stop="() => { deleteFolderId = sf.id; showDeleteFolderModal = true; }"
-        >
-          ✕
-        </button>
-        <div class="card-body text-center">
-          <div class="fs-2 mb-2">📁</div>
-          <h6 class="card-title text-success">{{ sf.name }}</h6>
-        </div>
-      </div>
-    </div>
+          <!-- Subfolders -->
+          <div
+            v-for="sf in subfolders"
+            :key="`folder-${sf.id}`"
+            class="col-12 col-sm-6 col-lg-4"
+          >
+            <div
+              class="card h-100 shadow-sm border-0 folder-card position-relative"
+              @click="showSubfolders(sf.id, sf.name)"
+              style="cursor: pointer;"
+            >
+              <button
+                class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1"
+                @click.stop="() => { deleteFolderId = sf.id; showDeleteFolderModal = true; }"
+              >
+                ✕
+              </button>
+              <div class="card-body text-center">
+                <div class="fs-2 mb-2">📁</div>
+                <h6 class="card-title text-tosca">{{ sf.name }}</h6>
+              </div>
+            </div>
+          </div>
 
-    <!-- Files -->
-    <div
-      v-for="file in files"
-      :key="`file-${file.id}`"
-      class="col-12 col-sm-6 col-lg-4"
-    >
-      <div class="card h-100 shadow-sm border-0 file-card position-relative">
-        <button
-          class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1"
-          @click="() => { deleteFileId = file.id; showDeleteModal = true; }"
-        >
-          ✕
-        </button>
-        <div class="card-body text-center">
-          <div class="fs-2 mb-2">{{ getFileIcon(file.name) }}</div>
-          <h6 class="card-title text-primary text-truncate">{{ file.name }}</h6>
-          <small class="text-muted">{{ getFileLabel(file.name) }}</small>
-        </div>
-      </div>
-    </div>
-  </TransitionGroup>
+          <!-- Files -->
+          <div
+            v-for="file in files"
+            :key="`file-${file.id}`"
+            class="col-12 col-sm-6 col-lg-4"
+          >
+            <div class="card h-100 shadow-sm border-0 file-card position-relative">
+              <button
+                class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1"
+                @click="() => { deleteFileId = file.id; showDeleteModal = true; }"
+              >
+                ✕
+              </button>
+              <div class="card-body text-center">
+                <div class="fs-2 mb-2">{{ getFileIcon(file.name) }}</div>
+                <h6 class="card-title text-primary text-truncate">{{ file.name }}</h6>
+                <small class="text-muted">{{ getFileLabel(file.name) }}</small>
+              </div>
+            </div>
+          </div>
+        </TransitionGroup>
 
         <!-- Empty state -->
         <Transition name="fade">
@@ -252,7 +245,7 @@ onMounted(async () => {
           </div>
           <div class="modal-footer">
             <button class="btn btn-secondary" @click="resetFolderModal">Cancel</button>
-            <button class="btn btn-success" @click="saveFolder">Save</button>
+            <button class="btn btn-tosca" @click="saveFolder">Save</button>
           </div>
         </div>
       </div>
@@ -307,17 +300,35 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+/* === Warna utama Tosca === */
+.bg-tosca {
+  background: linear-gradient(90deg, #20c997, #17a2b8) !important;
+}
+.text-tosca {
+  color: #20c997 !important;
+}
+.btn-tosca {
+  background-color: #20c997;
+  border: none;
+  color: white;
+}
+.btn-tosca:hover {
+  background-color: #17a2b8;
+  color: white;
+}
+
+/* Card Hover Effect */
 .folder-card,
 .file-card {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .folder-card:hover,
 .file-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0, 128, 96, 0.2);
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(32, 201, 151, 0.3);
 }
 
-/* Subfolders grid animation */
+/* Animasi grid */
 .list-enter-active,
 .list-leave-active {
   transition: all 0.3s ease;
@@ -339,7 +350,7 @@ onMounted(async () => {
   transform: translateY(10px);
 }
 
-/* Empty state fade */
+/* Animasi empty state */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease;
@@ -349,7 +360,7 @@ onMounted(async () => {
   opacity: 0;
 }
 
-/* Modal backdrop mimic */
+/* Modal backdrop */
 .modal {
   background: rgba(0, 0, 0, 0.5);
 }
