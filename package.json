@@ -1,0 +1,16 @@
+{
+  "name": "health-explorer",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev:backend": "cd backend && bun run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev": "echo \"Run backend and frontend in separate terminals: 'bun run dev:backend' and 'npm run dev:frontend'\"",
+    "start:backend": "cd backend && bun run start",
+    "start:frontend": "cd frontend && npm run start"
+  }
+}

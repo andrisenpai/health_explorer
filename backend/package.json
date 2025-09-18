@@ -1,0 +1,25 @@
+{
+  "name": "nitipandri2",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+   "scripts": {
+    "dev": "bun run index.ts",
+    "start": "node ./dist/index.js",
+    "prisma:generate": "bunx prisma generate"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "^1.4.0",
+    "@prisma/client": "^6.16.2",
+    "elysia": "^1.4.5",
+    "multer": "^2.0.2",
+    "prisma": "^6.16.2",
+    "ts-postgres": "^2.0.4"
+  }
+}

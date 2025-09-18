@@ -1,0 +1,35 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Folder {
+  id       Int      @id @default(autoincrement()) @map("id")
+  name     String   @map("name")
+  parentId Int?     @map("parent_id")
+
+  // Relasi folder ke parent/children
+  parent   Folder?  @relation("Subfolders", fields: [parentId], references: [id])
+  children Folder[] @relation("Subfolders")
+
+  // Relasi ke files
+  files    File[]
+
+  @@map("folders")   // map model Folder ke tabel "folders"
+}
+
+model File {
+  id       Int    @id @default(autoincrement()) @map("id")
+  name     String @map("name")
+  type     String @map("type")
+  folderId Int    @map("folder_id")
+
+  // Relasi ke folder
+  folder   Folder @relation(fields: [folderId], references: [id])
+  path     String @default("")
+  @@map("files")    // map model File ke tabel "files"
+}
